@@ -46,3 +46,30 @@ recode(x2,"'woman'='woman';'man'='guy'")
 
 #other approach
 ifelse(x2=="man","guy","woman")
+
+
+#fortsetzung
+install.packages("raster")
+library(raster)
+
+length(df$measure1)
+
+r1 <- raster(nrows=100,ncols=100)
+r1
+
+r1[] <- df$measure2[1:1000] #empty []=empty raster
+plot(r1)
+
+r2 <- raster(nrows=100,ncols=100)
+r2[] <- df$measure1[1:1000]
+r2
+
+r12 <- stack(r1,r2)
+r12
+plot(r12)
+
+r12[[1]]
+r12$new <- r12[[1]]*r12[[2]]^2 #[[x]] adressses the x-layer
+
+df12 <- r12[]
+head(df12)
