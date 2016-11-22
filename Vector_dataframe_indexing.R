@@ -1,4 +1,4 @@
-
+#dataframe, indexing and vector excercises
 
 
 df <- data.frame(plot="location_name_1",
@@ -48,7 +48,7 @@ recode(x2,"'woman'='woman';'man'='guy'")
 ifelse(x2=="man","guy","woman")
 
 
-#fortsetzung
+#fortsetzung 15.11.2016
 install.packages("raster")
 library(raster)
 
