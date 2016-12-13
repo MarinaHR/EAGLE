@@ -1,5 +1,10 @@
+install.packages("e1071")
 library(raster)
 library(cluster)
+library(rgdal)
+library(RStoolbox)
+library(randomForest)
+library(e1071)
 band_1 <- raster('/Users/Marina/Documents/Universität/Uni Würzburg/1. Semester/Digital Image Analysis and GIS/Data/Landsat Data/LT51930272003195MTI01_B1.TIF')
 band_2 <- raster('/Users/Marina/Documents/Universität/Uni Würzburg/1. Semester/Digital Image Analysis and GIS/Data/Landsat Data/LT51930272003195MTI01_B2.TIF')
 band_3 <- raster('/Users/Marina/Documents/Universität/Uni Würzburg/1. Semester/Digital Image Analysis and GIS/Data/Landsat Data/LT51930272003195MTI01_B3.TIF')
@@ -16,7 +21,10 @@ plot(lsat_allbands_crop,1)
 
 writeRaster(lsat_allbands_crop,"/Users/Marina/Documents/Universität/Uni Würzburg/1. Semester/Digital Image Analysis and GIS/Data/Landsat Data/landsat_allbands_rasterext.TIF")
 
-library(rgdal)
-td <- rgdal::readOGR("/Users/Marina/Documents/Universität/Uni Würzburg/1. Semester/Digital Image Analysis and GIS/Data/Landsat Data","Training_classes")
-superClass(allbands,traindata=td)
-?superClass
+td <- rgdal::readOGR("/Users/Marina/Documents/Universität/Uni Würzburg/1. Semester/Programming and Geostatistical Analysis/Project_R/vector_data","Training_areas")
+
+class1 <- superClass(lsat_allbands_crop,trainData = td,responseCol = "Class")
+class1
+install.packages("maptools")
+library(maptools)
+plot(class1$map)
