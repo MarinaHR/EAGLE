@@ -1,3 +1,4 @@
+library(raster)
 library(cluster)
 band_1 <- raster('/Users/Marina/Documents/Universität/Uni Würzburg/1. Semester/Digital Image Analysis and GIS/Data/Landsat Data/LT51930272003195MTI01_B1.TIF')
 band_2 <- raster('/Users/Marina/Documents/Universität/Uni Würzburg/1. Semester/Digital Image Analysis and GIS/Data/Landsat Data/LT51930272003195MTI01_B2.TIF')
@@ -8,6 +9,14 @@ band_6 <- raster('/Users/Marina/Documents/Universität/Uni Würzburg/1. Semester
 band_7 <- raster('/Users/Marina/Documents/Universität/Uni Würzburg/1. Semester/Digital Image Analysis and GIS/Data/Landsat Data/LT51930272003195MTI01_B7.TIF')
 
 lsat_allbands <- stack(band_1,band_2,band_3,band_4,band_5,band_6,band_7)
-plot(lsat_allbands)
+plot(lsat_allbands,1)
 ext <- drawExtent()
-writeRaster(ext,"/Users/Marina/Documents/Universität/Uni Würzburg/1. Semester/Digital Image Analysis and GIS/Data/Landsat Data/landsat_allbands_rasterext.TIF")
+lsat_allbands_crop <- crop(lsat_allbands,ext)
+plot(lsat_allbands_crop,1)
+
+writeRaster(lsat_allbands_crop,"/Users/Marina/Documents/Universität/Uni Würzburg/1. Semester/Digital Image Analysis and GIS/Data/Landsat Data/landsat_allbands_rasterext.TIF")
+
+library(rgdal)
+td <- rgdal::readOGR("/Users/Marina/Documents/Universität/Uni Würzburg/1. Semester/Digital Image Analysis and GIS/Data/Landsat Data","Training_classes")
+superClass(allbands,traindata=td)
+?superClass
