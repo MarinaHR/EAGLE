@@ -1,0 +1,15 @@
+library(raster)
+band_1 <- raster('/Users/Marina/Documents/Universität/Uni Würzburg/1. Semester/Digital Image Analysis and GIS/Data/Landsat Data/LT51930272003195MTI01_B1.TIF')
+band_2 <- raster('/Users/Marina/Documents/Universität/Uni Würzburg/1. Semester/Digital Image Analysis and GIS/Data/Landsat Data/LT51930272003195MTI01_B2.TIF')
+band_3 <- raster('/Users/Marina/Documents/Universität/Uni Würzburg/1. Semester/Digital Image Analysis and GIS/Data/Landsat Data/LT51930272003195MTI01_B3.TIF')
+band_4 <- raster('/Users/Marina/Documents/Universität/Uni Würzburg/1. Semester/Digital Image Analysis and GIS/Data/Landsat Data/LT51930272003195MTI01_B4.TIF')
+band_5 <- raster('/Users/Marina/Documents/Universität/Uni Würzburg/1. Semester/Digital Image Analysis and GIS/Data/Landsat Data/LT51930272003195MTI01_B5.TIF')
+band_6 <- raster('/Users/Marina/Documents/Universität/Uni Würzburg/1. Semester/Digital Image Analysis and GIS/Data/Landsat Data/LT51930272003195MTI01_B6.TIF')
+band_7 <- raster('/Users/Marina/Documents/Universität/Uni Würzburg/1. Semester/Digital Image Analysis and GIS/Data/Landsat Data/LT51930272003195MTI01_B7.TIF')
+
+lsat_allbands <- stack(band_1,band_2,band_3,band_4,band_5,band_6,band_7)
+plotRGB(lsat_allbands,3,2,1)
+lsat_allbands.kmeans <- kmeans(lsat_allbands[],5,iter.max = 100,nstart = 3)
+kmeansraster <- raster(lsat_allbands)
+kmeansraster[] <- lsat_allbands.kmeans$cluster
+plot(kmeansraster)
